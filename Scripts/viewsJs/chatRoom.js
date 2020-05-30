@@ -1,4 +1,4 @@
-﻿var urlChatRoom = baseUrl + 'ChatRoom/';
+﻿var urlChatRoom = baseServicioUrl + 'ChatRoom/';
 
 $(document).ready(function () {
 

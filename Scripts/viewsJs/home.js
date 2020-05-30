@@ -1,4 +1,4 @@
-﻿var urlHome = baseUrl + 'Home/';
+﻿var urlHome = baseServicioUrl + 'Home/';
 
 $(document).ready(function () {
     localStorage.removeItem('connectionId');
