@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Player - ChatRoom</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <script type="text/javascript">
+        var baseUrl = "/";
+    </script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/Content/openicons/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="/Scripts/jquery.signalR-2.2.2.min.js" type="text/javascript"></script>
+    <script src="http://signalr.somee.com/signalr/hubs"></script>
+
+    <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+    <link href="/Content/emojionearea.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/Content/site.css" />
+</head>
+<body>
+    <header>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+                <a href="/index.html" class="navbar-brand d-flex align-items-center titleMenu">
+                    <span class="oi oi-video"></span>
+                    <strong>&nbsp;&nbsp;PlayList</strong>
+                </a>
+    
+                <div id="alertsNotifications" class="form-inline mt-2 mt-md-0">
+                    <button type="button" id="btnSalir" class="btn btn-info margin00050005 d-none">
+                        <span class="oi oi-account-logout"></span>&nbsp;&nbsp;Salir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        <div class="card-body row">
+            <div class="col-sm-8 col-md-8 order-md-1">
+                <div class="input-group mb-2">
+                    <input id="palabraYoutube" type="text" class="form-control width300" maxlength="50" placeholder="Buscar ...">
+                    <button type="button" class="btn btn-info" id="btnViewSearch">
+                        <span class="oi oi-magnifying-glass"></span>&nbsp;&nbsp;Youtube
+                    </button>
+                </div>
+                <video id="myVideo"
+                       class="video-js vjs-big-play-centered"
+                       controls
+                       data-setup='{ "techOrder": ["youtube", "html5"] }'>
+                    <source src="https://www.youtube.com/watch?v=sem5xr_wezM" type="video/youtube">
+                </video>
+            </div>
+            <div id="chat" class="col-sm-4 col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center pb-1 border-bottom border-gray">
+                    <span class="oi oi-chat"></span>
+                    <span id="participantes">Chat Room</span>
+                    <a href="#"></a>
+                </h4>
+                <div id="chat-messages">
+                </div>
+                <hr class="mb-1" />
+                <div id="chatToolBar" class="card p-2 d-none">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="txtMensaje" placeholder="Escribe un mensaje...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <audio id="chatAudio">
+        <source src="/Content/audio/notify.ogg" type="audio/ogg">
+    </audio>
+
+<footer class="pt-5 text-muted text-center text-small">
+    <p class="mb-1">© 2020 Cuarentena</p>
+</footer>
+
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+</div><!-- /.main-container -->
+<!-- basic scripts -->
+<script src="/Scripts/validCampoFranz.js"></script>
+<script src="/Scripts/webApp.js"></script>
+<script src="/Scripts/jquery.blockUI.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+    <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="/Scripts/Youtube.min.js"></script>
+    <script src="~/Scripts/emojionearea.min.js" type="text/javascript"></script>
+
+    <script src="/Scripts/video.js"></script>
+    <script src="/Scripts/chat.js"></script>
+    <script src="/Scripts/viewsJs/chatRoom.js"></script>
+
+    <!-- inline scripts related to this page -->
+
+    <!-- inline scripts related to this page -->
+<!-- Ajax BlockUi scripts -->
+<script type="text/javascript">
+    var pageBlocked = false;
+    var handlerActivo = false;
+
+    $(document).ready(function () {
+        $.blockUI.defaults.baseZ = 100000;
+        $.blockUI.defaults.overlayCSS.opacity = 0.4;
+        $.blockUI.defaults.css.backgroundColor = "transparent";
+        $.blockUI.defaults.css.border = '0px none';
+        $.blockUI.defaults.fadeIn = 100,
+            $.blockUI.defaults.fadeOut = 100,
+
+            $(document).ajaxSend(function () {
+                if (!pageBlocked) {
+                    $.blockUI({
+                        message: "Espere un momento por favor",
+                        css: {
+                            border: 'none',
+                            padding: '15px',
+                            backgroundColor: '#000',
+                            '-webkit-border-radius': '10px',
+                            '-moz-border-radius': '10px',
+                            opacity: 1,
+                            color: '#fff'
+                        },
+                        onBlock: function () {
+                            pageBlocked = true;
+                        }
+                    });
+                }
+            }).ajaxStop(function () {
+                jQuery.unblockUI();
+                pageBlocked = false;
+            });
+
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        var parametros = {
+            mensajeEspera: 'Espere un momento por favor...',
+            tituloPopupMensaje: 'Informaci&oacute;n',
+            tituloPopupComfirmacion: 'Confirmaci&oacute;n',
+            tituloEliminacionPopupMensaje: 'Eliminaci&oacute;n',
+            mensajePopupConfirmacion: '&#191;Est&aacute; seguro de continuar con este proceso?',
+            mensajePopupEliminacionConfirmacion: '&#191;Est&aacute; seguro de continuar con este proceso?',
+            btnCancelar: 'Cancelar',
+            btnAceptar: 'Aceptar',
+            formatoFecha: 'dd/MM/yyyy hh:mm'
+        };
+
+        webApp.init(parametros);
+
+    });
+</script>
+
+    </body>
+</html>
